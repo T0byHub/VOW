@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOW</title>
+  <style>
+    :root {
+      --bg-color: #0a0a0a;
+      --bg-secondary: #151515;
+      --accent-color: #3b82f6;
+      --accent-color-light: #60a5fa;
+      --text-color: #ffffff;
+      --secondary-text: #aaaaaa;
+      --border-radius: 16px;
+      --transition-speed: 0.3s;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .profile-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      z-index: 1;
+      background-color: var(--bg-secondary);
+      padding: 25px 40px;
+      border-radius: var(--border-radius);
+      transform: translateY(40px);
+      opacity: 0;
+      animation: fadeUp 1s ease-out forwards 0.5s;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-color-light);
+      animation: pulse-border 3s infinite alternate;
+    }
+    
+    @keyframes pulse-border {
+      0% {
+        box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-color-light);
+      }
+      100% {
+        box-shadow: 0 0 0 2px var(--accent-color-light), 0 0 20px 4px var(--accent-color);
+      }
+    }
+    
+    .channel-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      background-color: var(--accent-color);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      margin-left: 30px;
+      flex-grow: 1;
+    }
+    
+    .channel-name {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    
+    .discord-button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all var(--transition-speed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 150px;
+      text-decoration: none;
+    }
+    
+    .discord-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+      background-color: var(--accent-color-light);
+    }
+    
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+    
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+    .particle {
+      position: absolute;
+      background-color: rgba(59, 130, 246, 0.2);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    @media (max-width: 500px) {
+      .profile-section {
+        flex-direction: column;
+        padding: 30px 20px;
+      }
+      
+      .content-wrapper {
+        margin-left: 0;
+        margin-top: 20px;
+        align-items: center;
+      }
+      
+      .channel-avatar {
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <div class="particles" id="particles"></div>
+      <div class="profile-section">
+        <div class="channel-avatar">
+          <img src="ico.png" alt="VOW" class="avatar-img">
+        </div>
+        <div class="content-wrapper">
+          <h1 class="channel-name">VOW</h1>
+          <a href="https://discord.gg/eFznNrYMgw" class="discord-button" id="discord-btn" target="_blank">DISCORD</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      const size = Math.random() * 5 + 3;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      const xPos = Math.random() * 100;
+      const yPos = Math.random() * 100;
+      particle.style.left = `${xPos}%`;
+      particle.style.top = `${yPos}%`;
+      
+      particle.style.opacity = Math.random() * 0.5 + 0.1;
+      
+      const duration = Math.random() * 20 + 10;
+      const delay = Math.random() * 5;
+      particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+      
+      particlesContainer.appendChild(particle);
+    }
+    
+    const discordButton = document.getElementById('discord-btn');
+    
+    discordButton.addEventListener('mouseover', () => {
+      discordButton.style.transform = 'scale(1.05)';
+      discordButton.style.boxShadow = '0 0 15px rgba(59, 130, 246, 0.6)';
+    });
+    
+    discordButton.addEventListener('mouseout', () => {
+      discordButton.style.transform = '';
+      discordButton.style.boxShadow = '';
+    });
+  </script>
+</body>
+</html>
