@@ -9,7 +9,7 @@
       --bg-color: #0a0a0a;
       --bg-secondary: #151515;
       --accent-color: #3b82f6;
-      --accent-color-light: #60a5fa;
+      --accent-glow: #64b5f6;
       --text-color: #ffffff;
       --secondary-text: #aaaaaa;
       --border-radius: 16px;
@@ -48,30 +48,27 @@
     
     .profile-section {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
       z-index: 1;
       background-color: var(--bg-secondary);
-      padding: 25px 40px;
+      padding: 40px;
       border-radius: var(--border-radius);
+      box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-glow), 0 0 20px rgba(59, 130, 246, 0.3);
       transform: translateY(40px);
       opacity: 0;
-      animation: fadeUp 1s ease-out forwards 0.5s;
+      animation: fadeUp 1s ease-out forwards 0.5s, glowBorder 2s infinite alternate;
       width: 90%;
-      max-width: 500px;
+      max-width: 600px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-color-light);
-      animation: pulse-border 3s infinite alternate;
     }
     
-    @keyframes pulse-border {
-      0% {
-        box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-color-light);
-      }
-      100% {
-        box-shadow: 0 0 0 2px var(--accent-color-light), 0 0 20px 4px var(--accent-color);
-      }
+    .profile-container {
+      display: flex;
+      width: 100%;
+      margin-bottom: 20px;
+      align-items: flex-start;
     }
     
     .channel-avatar {
@@ -79,9 +76,9 @@
       height: 100px;
       border-radius: 8px;
       background-color: var(--accent-color);
+      margin-right: 30px;
       overflow: hidden;
       position: relative;
-      flex-shrink: 0;
     }
     
     .avatar-img {
@@ -93,14 +90,17 @@
     .content-wrapper {
       display: flex;
       flex-direction: column;
-      margin-left: 30px;
-      flex-grow: 1;
+      flex: 1;
+    }
+    
+    .channel-info {
+      margin-bottom: 15px;
     }
     
     .channel-name {
       font-size: 36px;
       font-weight: bold;
-      margin-bottom: 15px;
+      letter-spacing: 1px;
     }
     
     .discord-button {
@@ -117,14 +117,14 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      max-width: 150px;
+      max-width: 160px;
       text-decoration: none;
     }
     
     .discord-button:hover {
       transform: scale(1.05);
       box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
-      background-color: var(--accent-color-light);
+      background-color: #1a56db;
     }
     
     @keyframes fadeUp {
@@ -134,15 +134,12 @@
       }
     }
     
-    @keyframes float {
+    @keyframes glowBorder {
       0% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-10px);
+        box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-glow), 0 0 20px rgba(59, 130, 246, 0.3);
       }
       100% {
-        transform: translateY(0px);
+        box-shadow: 0 0 0 1px var(--accent-color), 0 0 15px 4px var(--accent-glow), 0 0 30px rgba(59, 130, 246, 0.5);
       }
     }
     
@@ -163,20 +160,20 @@
       pointer-events: none;
     }
     
-    @media (max-width: 500px) {
-      .profile-section {
+    @media (max-width: 768px) {
+      .profile-container {
         flex-direction: column;
-        padding: 30px 20px;
-      }
-      
-      .content-wrapper {
-        margin-left: 0;
-        margin-top: 20px;
         align-items: center;
+        text-align: center;
       }
       
       .channel-avatar {
-        margin-bottom: 15px;
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      
+      .content-wrapper {
+        align-items: center;
       }
     }
   </style>
@@ -186,12 +183,16 @@
     <section class="hero">
       <div class="particles" id="particles"></div>
       <div class="profile-section">
-        <div class="channel-avatar">
-          <img src="ico.png" alt="VOW" class="avatar-img">
-        </div>
-        <div class="content-wrapper">
-          <h1 class="channel-name">VOW</h1>
-          <a href="https://discord.gg/eFznNrYMgw" class="discord-button" id="discord-btn" target="_blank">DISCORD</a>
+        <div class="profile-container">
+          <div class="channel-avatar">
+            <img src="ico.png" alt="VOW" class="avatar-img">
+          </div>
+          <div class="content-wrapper">
+            <div class="channel-info">
+              <h1 class="channel-name">VOW</h1>
+            </div>
+            <a href="https://discord.gg/eFznNrYMgw" class="discord-button" id="discord-btn" target="_blank">DISCORD</a>
+          </div>
         </div>
       </div>
     </section>
