@@ -41,9 +41,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       position: relative;
       overflow: hidden;
+      padding: 40px 0;
     }
     
     .profile-section {
@@ -62,6 +63,7 @@
       max-width: 600px;
       position: relative;
       overflow: hidden;
+      margin-bottom: 40px;
     }
     
     .profile-container {
@@ -127,6 +129,113 @@
       background-color: #1a56db;
     }
     
+    /* Top 3 Widget Styles */
+    .top-widget {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+      background-color: var(--bg-secondary);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-glow), 0 0 20px rgba(59, 130, 246, 0.3);
+      transform: translateY(40px);
+      opacity: 0;
+      animation: fadeUp 1s ease-out forwards 0.8s, glowBorder 2s infinite alternate;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .widget-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+      color: var(--text-color);
+    }
+    
+    .widget-title:after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: var(--accent-color);
+      margin: 10px auto 0;
+    }
+    
+    .top-list {
+      width: 100%;
+    }
+    
+    .top-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background-color: rgba(59, 130, 246, 0.1);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .top-item:hover {
+      transform: translateX(5px);
+      background-color: rgba(59, 130, 246, 0.2);
+    }
+    
+    .top-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .rank {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-right: 15px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: rgba(59, 130, 246, 0.2);
+      box-shadow: 0 0 10px 2px rgba(59, 130, 246, 0.5);
+    }
+    
+    .rank.gold {
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      box-shadow: 0 0 10px 2px rgba(253, 160, 133, 0.7);
+    }
+    
+    .rank.silver {
+      background: linear-gradient(135deg, #e2e2e2 0%, #c9c9c9 100%);
+      box-shadow: 0 0 10px 2px rgba(201, 201, 201, 0.7);
+    }
+    
+    .rank.bronze {
+      background: linear-gradient(135deg, #cd7f32 0%, #a05a2c 100%);
+      box-shadow: 0 0 10px 2px rgba(205, 127, 50, 0.7);
+    }
+    
+    .item-content {
+      flex: 1;
+    }
+    
+    .item-name {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    
+    .item-description {
+      font-size: 13px;
+      color: var(--secondary-text);
+    }
+    
     @keyframes fadeUp {
       to {
         opacity: 1;
@@ -175,6 +284,10 @@
       .content-wrapper {
         align-items: center;
       }
+      
+      .rank {
+        margin-right: 10px;
+      }
     }
   </style>
 </head>
@@ -192,6 +305,48 @@
               <h1 class="channel-name">VOW</h1>
             </div>
             <a href="https://discord.gg/eFznNrYMgw" class="discord-button" id="discord-btn" target="_blank">DISCORD</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Top 3 Widget -->
+      <div class="top-widget">
+        <h2 class="widget-title">TOP 3 MEMBERS</h2>
+        <div class="top-list">
+          <div class="top-item">
+            <div class="rank gold">1</div>
+            <div class="item-content">
+              <div class="item-name">NOT SET</div>
+              <div class="item-description">NOT SET</div>
+            </div>
+          </div>
+          <div class="top-item">
+            <div class="rank silver">2</div>
+            <div class="item-content">
+              <div class="item-name">NOT SET</div>
+              <div class="item-description">NOT SET</div>
+            </div>
+          </div>
+          <div class="top-item">
+            <div class="rank bronze">3</div>
+            <div class="item-content">
+              <div class="item-name">NOT SET</div>
+              <div class="item-description">NOT SET</div>
+            </div>
+          </div>
+          <div class="top-item">
+            <div class="rank">4</div>
+            <div class="item-content">
+              <div class="item-name">NOT SET</div>
+              <div class="item-description">NOT SET</div>
+            </div>
+          </div>
+          <div class="top-item">
+            <div class="rank">5</div>
+            <div class="item-content">
+              <div class="item-name">NOT SET</div>
+              <div class="item-description">NOT SET</div>
+            </div>
           </div>
         </div>
       </div>
@@ -219,7 +374,24 @@
       
       const duration = Math.random() * 20 + 10;
       const delay = Math.random() * 5;
+      
+      // Add floating animation
       particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+      particle.style.transform = 'translateY(0)';
+      
+      // Create keyframes for float animation
+      const keyframes = `
+        @keyframes float {
+          0% { transform: translate(0, 0); }
+          50% { transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 30 - 15}px); }
+          100% { transform: translate(0, 0); }
+        }
+      `;
+      
+      // Add keyframes to document
+      const styleSheet = document.createElement('style');
+      styleSheet.textContent = keyframes;
+      document.head.appendChild(styleSheet);
       
       particlesContainer.appendChild(particle);
     }
