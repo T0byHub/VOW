@@ -251,50 +251,11 @@
         box-shadow: 0 0 0 1px var(--accent-color), 0 0 15px 4px var(--accent-glow), 0 0 30px rgba(59, 130, 246, 0.5);
       }
     }
-    
-    .particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-    }
-    
-    .particle {
-      position: absolute;
-      background-color: rgba(59, 130, 246, 0.2);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    
-    @media (max-width: 768px) {
-      .profile-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      
-      .channel-avatar {
-        margin-right: 0;
-        margin-bottom: 20px;
-      }
-      
-      .content-wrapper {
-        align-items: center;
-      }
-      
-      .rank {
-        margin-right: 10px;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <section class="hero">
-      <div class="particles" id="particles"></div>
       <div class="profile-section">
         <div class="profile-container">
           <div class="channel-avatar">
@@ -308,105 +269,14 @@
           </div>
         </div>
       </div>
-      
-      <!-- Top 3 Widget -->
+
       <div class="top-widget">
         <h2 class="widget-title">TOP 5 MEMBERS</h2>
-        <div class="top-list">
-          <div class="top-item">
-            <div class="rank gold">1</div>
-            <div class="item-content">
-              <div class="item-name">NOT SET</div>
-              <div class="item-description">NOT SET</div>
-            </div>
-          </div>
-          <div class="top-item">
-            <div class="rank silver">2</div>
-            <div class="item-content">
-              <div class="item-name">NOT SET</div>
-              <div class="item-description">NOT SET</div>
-            </div>
-          </div>
-          <div class="top-item">
-            <div class="rank bronze">3</div>
-            <div class="item-content">
-              <div class="item-name">NOT SET</div>
-              <div class="item-description">NOT SET</div>
-            </div>
-          </div>
-          <div class="top-item">
-            <div class="rank">4</div>
-            <div class="item-content">
-              <div class="item-name">NOT SET</div>
-              <div class="item-description">NOT SET</div>
-            </div>
-          </div>
-          <div class="top-item">
-            <div class="rank">5</div>
-            <div class="item-content">
-              <div class="item-name">NOT SET</div>
-              <div class="item-description">NOT SET</div>
-            </div>
-          </div>
-        </div>
+        <div class="top-list"></div>
       </div>
     </section>
   </div>
 
-  <script>
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = 30;
-    
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      
-      const size = Math.random() * 5 + 3;
-      particle.style.width = `${size}px`;
-      particle.style.height = `${size}px`;
-      
-      const xPos = Math.random() * 100;
-      const yPos = Math.random() * 100;
-      particle.style.left = `${xPos}%`;
-      particle.style.top = `${yPos}%`;
-      
-      particle.style.opacity = Math.random() * 0.5 + 0.1;
-      
-      const duration = Math.random() * 20 + 10;
-      const delay = Math.random() * 5;
-      
-      // Add floating animation
-      particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-      particle.style.transform = 'translateY(0)';
-      
-      // Create keyframes for float animation
-      const keyframes = `
-        @keyframes float {
-          0% { transform: translate(0, 0); }
-          50% { transform: translate(${Math.random() * 20 - 10}px, ${Math.random() * 30 - 15}px); }
-          100% { transform: translate(0, 0); }
-        }
-      `;
-      
-      // Add keyframes to document
-      const styleSheet = document.createElement('style');
-      styleSheet.textContent = keyframes;
-      document.head.appendChild(styleSheet);
-      
-      particlesContainer.appendChild(particle);
-    }
-    
-    const discordButton = document.getElementById('discord-btn');
-    
-    discordButton.addEventListener('mouseover', () => {
-      discordButton.style.transform = 'scale(1.05)';
-      discordButton.style.boxShadow = '0 0 15px rgba(59, 130, 246, 0.6)';
-    });
-    
-    discordButton.addEventListener('mouseout', () => {
-      discordButton.style.transform = '';
-      discordButton.style.boxShadow = '';
-    });
-  </script>
+  <script src="array.js"></script>
 </body>
 </html>
