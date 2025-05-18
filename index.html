@@ -1,582 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VOW</title>
-  <style>
-    :root {
-      --bg-color: #0a0a0a;
-      --bg-secondary: #151515;
-      --accent-color: #3b82f6;
-      --accent-glow: #64b5f6;
-      --text-color: #ffffff;
-      --secondary-text: #aaaaaa;
-      --border-radius: 16px;
-      --transition-speed: 0.3s;
-      --gold-gradient: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-      --silver-gradient: linear-gradient(135deg, #e2e2e2 0%, #c9c9c9 100%);
-      --bronze-gradient: linear-gradient(135deg, #cd7f32 0%, #a05a2c 100%);
-      --neon-blue: #00bfff;
-      --neon-pink: #ff1493;
-      --neon-purple: #9932cc;
-      --neon-green: #39ff14;
-    }
-      html, body {
-       overflow: hidden;
-    }
-
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      overflow-x: hidden;
-      min-height: 100vh;
-      background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #080808 100%);
-      position: relative;
-    }
-    
-    body::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: 
-        radial-gradient(circle at 20% 20%, rgba(0, 191, 255, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 80% 30%, rgba(153, 50, 204, 0.05) 0%, transparent 25%),
-        radial-gradient(circle at 40% 70%, rgba(57, 255, 20, 0.05) 0%, transparent 30%),
-        radial-gradient(circle at 70% 80%, rgba(255, 20, 147, 0.05) 0%, transparent 25%);
-      z-index: -1;
-      pointer-events: none;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
-      padding: 40px 0;
-    }
-    
-    .profile-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 1;
-      background-color: var(--bg-secondary);
-      padding: 40px;
-      border-radius: var(--border-radius);
-      box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-glow), 0 0 20px rgba(59, 130, 246, 0.3);
-      transform: translateY(40px);
-      opacity: 0;
-      animation: fadeUp 1s ease-out forwards 0.5s, glowBorder 2s infinite alternate;
-      width: 90%;
-      max-width: 600px;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 40px;
-      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
-    }
-    
-    .profile-section:hover {
-      transform: translateY(0) scale(1.02);
-      box-shadow: 0 0 0 2px var(--accent-color), 0 0 20px 5px var(--accent-glow), 0 0 40px rgba(59, 130, 246, 0.4);
-    }
-    
-    .profile-section::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      right: -50%;
-      bottom: -50%;
-      background: conic-gradient(from 0deg at 50% 50%, transparent 0%, transparent 35%, rgba(59, 130, 246, 0.1) 40%, transparent 60%);
-      animation: rotate 4s linear infinite;
-      z-index: -1;
-    }
-    
-    .profile-container {
-      display: flex;
-      width: 100%;
-      margin-bottom: 20px;
-      align-items: flex-start;
-    }
-    
-    .channel-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 8px;
-      background-color: var(--accent-color);
-      margin-right: 30px;
-      overflow: hidden;
-      position: relative;
-      transition: transform var(--transition-speed);
-    }
-    
-    .channel-avatar:hover {
-      transform: scale(1.1) rotate(2deg);
-    }
-    
-    .avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .content-wrapper {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-    
-    .channel-info {
-      margin-bottom: 15px;
-    }
-    
-    /* Simplified VOW title styles - removed effects */
-    .channel-name {
-      font-size: 36px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      color: #ffffff;
-    }
-    
-    /* Simplified Discord button - removed effects */
-    .discord-button {
-      background-color: var(--accent-color);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 20px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color var(--transition-speed);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 160px;
-      text-decoration: none;
-    }
-    
-    .discord-button:hover {
-      background-color: var(--accent-glow);
-    }
-    
-    /* Top Widget Styles */
-    .top-widget {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 1;
-      background-color: var(--bg-secondary);
-      padding: 30px;
-      border-radius: var(--border-radius);
-      box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-glow), 0 0 20px rgba(59, 130, 246, 0.3);
-      transform: translateY(40px);
-      opacity: 0;
-      animation: fadeUp 1s ease-out forwards 0.8s, glowBorder 2s infinite alternate;
-      width: 90%;
-      max-width: 600px;
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--transition-speed);
-    }
-    
-    .top-widget:hover {
-      transform: translateY(0) scale(1.02);
-    }
-    
-    .widget-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-align: center;
-      position: relative;
-      color: var(--text-color);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
-      overflow: hidden;
-    }
-    
-    .widget-title:after {
-      content: "";
-      display: block;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-      margin: 10px auto 0;
-      transition: all var(--transition-speed);
-      border-radius: 3px;
-    }
-    
-    .top-widget:hover .widget-title:after {
-      width: 100px;
-      height: 4px;
-      box-shadow: 0 0 10px var(--accent-glow);
-      background: linear-gradient(90deg, 
-        transparent, 
-        var(--neon-blue), 
-        var(--neon-pink), 
-        var(--neon-purple), 
-        var(--accent-color), 
-        transparent
-      );
-      animation: sliderGlow 2s infinite alternate;
-    }
-    
-    @keyframes sliderGlow {
-      0% {
-        box-shadow: 0 0 5px var(--accent-glow);
-        opacity: 0.7;
-      }
-      100% {
-        box-shadow: 0 0 15px var(--accent-glow), 0 0 20px var(--accent-color);
-        opacity: 1;
-      }
-    }
-    
-    .top-list {
-      width: 100%;
-    }
-    
-    .top-item {
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 12px;
-      transition: all 0.3s ease-out;
-      position: relative;
-      overflow: hidden;
-      transform-origin: left center;
-    }
-    
-    .top-item:hover {
-      transform: translateX(10px) scale(1.05);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    .top-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      z-index: 0;
-      transform: scaleY(0);
-      transform-origin: bottom;
-      transition: transform 0.5s ease;
-    }
-    
-    .top-item:hover::before {
-      transform: scaleY(1);
-    }
-    
-    .top-item::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.6s ease;
-    }
-    
-    .top-item:hover::after {
-      transform: translateX(100%);
-    }
-    
-    .top-item:last-child {
-      margin-bottom: 0;
-    }
-    
-    /* Gold background for #1 */
-    .top-item:nth-child(1) {
-      background: linear-gradient(to right, rgba(246, 211, 101, 0.2), rgba(253, 160, 133, 0.2));
-      border-left: 0;
-      box-shadow: inset 0 0 15px rgba(246, 211, 101, 0.1);
-    }
-    
-    .top-item:nth-child(1):hover {
-      background: linear-gradient(to right, rgba(246, 211, 101, 0.3), rgba(253, 160, 133, 0.3));
-      box-shadow: inset 0 0 25px rgba(246, 211, 101, 0.2), 0 0 10px rgba(253, 160, 133, 0.4);
-    }
-    
-    .top-item:nth-child(1)::before {
-      background: var(--gold-gradient);
-      box-shadow: 0 0 10px rgba(246, 211, 101, 0.7);
-    }
-    
-    /* Silver background for #2 */
-    .top-item:nth-child(2) {
-      background: linear-gradient(to right, rgba(226, 226, 226, 0.2), rgba(201, 201, 201, 0.2));
-      border-left: 0;
-      box-shadow: inset 0 0 15px rgba(226, 226, 226, 0.1);
-    }
-    
-    .top-item:nth-child(2):hover {
-      background: linear-gradient(to right, rgba(226, 226, 226, 0.3), rgba(201, 201, 201, 0.3));
-      box-shadow: inset 0 0 25px rgba(226, 226, 226, 0.2), 0 0 10px rgba(201, 201, 201, 0.4);
-    }
-    
-    .top-item:nth-child(2)::before {
-      background: var(--silver-gradient);
-      box-shadow: 0 0 10px rgba(226, 226, 226, 0.7);
-    }
-    
-    /* Bronze background for #3 */
-    .top-item:nth-child(3) {
-      background: linear-gradient(to right, rgba(205, 127, 50, 0.2), rgba(160, 90, 44, 0.2));
-      border-left: 0;
-      box-shadow: inset 0 0 15px rgba(205, 127, 50, 0.1);
-    }
-    
-    .top-item:nth-child(3):hover {
-      background: linear-gradient(to right, rgba(205, 127, 50, 0.3), rgba(160, 90, 44, 0.3));
-      box-shadow: inset 0 0 25px rgba(205, 127, 50, 0.2), 0 0 10px rgba(160, 90, 44, 0.4);
-    }
-    
-    .top-item:nth-child(3)::before {
-      background: var(--bronze-gradient);
-      box-shadow: 0 0 10px rgba(205, 127, 50, 0.7);
-    }
-    
-    /* Regular background for others */
-    .top-item:nth-child(n+4) {
-      background: linear-gradient(to right, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
-      border-left: 0;
-      box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.05);
-    }
-    
-    .top-item:nth-child(n+4):hover {
-      background: linear-gradient(to right, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
-      box-shadow: inset 0 0 25px rgba(59, 130, 246, 0.1), 0 0 10px rgba(59, 130, 246, 0.3);
-    }
-    
-    .top-item:nth-child(n+4)::before {
-      background: linear-gradient(to top, var(--accent-color), var(--accent-glow));
-      box-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
-    }
-    
-    .rank {
-      font-size: 18px;
-      font-weight: bold;
-      color: #ffffff;
-      margin-right: 15px;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all var(--transition-speed);
-      position: relative;
-      z-index: 1;
-    }
-    
-    .top-item:hover .rank {
-      transform: scale(1.3) rotate(10deg);
-      animation: wobble 0.5s ease-in-out;
-    }
-    
-    .rank::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: inherit;
-      z-index: -1;
-      opacity: 0.6;
-      transform: scale(0);
-      transition: transform 0.3s ease-out;
-    }
-    
-    .top-item:hover .rank::before {
-      transform: scale(1.5);
-      animation: pulseRank 1.5s infinite;
-    }
-    
-    @keyframes wobble {
-      0% { transform: scale(1.3) rotate(10deg); }
-      25% { transform: scale(1.3) rotate(-7deg); }
-      50% { transform: scale(1.3) rotate(5deg); }
-      75% { transform: scale(1.3) rotate(-3deg); }
-      100% { transform: scale(1.3) rotate(10deg); }
-    }
-    
-    @keyframes pulseRank {
-      0% { transform: scale(1.2); opacity: 0.7; }
-      50% { transform: scale(1.8); opacity: 0.3; }
-      100% { transform: scale(1.2); opacity: 0.7; }
-    }
-    
-    .rank.gold {
-      background: var(--gold-gradient);
-      box-shadow: 0 0 10px 2px rgba(253, 160, 133, 0.7);
-    }
-    
-    .rank.silver {
-      background: var(--silver-gradient);
-      box-shadow: 0 0 10px 2px rgba(201, 201, 201, 0.7);
-    }
-    
-    .rank.bronze {
-      background: var(--bronze-gradient);
-      box-shadow: 0 0 10px 2px rgba(205, 127, 50, 0.7);
-    }
-    
-    .item-content {
-      flex: 1;
-      transition: transform var(--transition-speed);
-    }
-    
-    .top-item:hover .item-content {
-      transform: translateX(5px);
-    }
-    
-    .item-name {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 4px;
-      transition: color var(--transition-speed);
-    }
-    
-    .top-item:hover .item-name {
-      color: #ffffff;
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    }
-    
-    .item-description {
-      font-size: 13px;
-      color: var(--secondary-text);
-      transition: color var(--transition-speed);
-    }
-    
-    .top-item:hover .item-description {
-      color: #cccccc;
-    }
-    
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes glowBorder {
-      0% {
-        box-shadow: 0 0 0 1px var(--accent-color), 0 0 10px 2px var(--accent-glow), 0 0 20px rgba(59, 130, 246, 0.3);
-      }
-      100% {
-        box-shadow: 0 0 0 1px var(--accent-color), 0 0 15px 4px var(--accent-glow), 0 0 30px rgba(59, 130, 246, 0.5);
-      }
-    }
-    
-    @keyframes rotate {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Log</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #ffffff;
+            font-family: monospace;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .error-message {
+            color: #ff0000;
+            margin-bottom: 20px;
+        }
+        
+        #log-text {
+            color: #ffffff;
+            white-space: pre;
+            line-height: 1.3;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero">
-      <div class="profile-section">
-        <div class="profile-container">
-          <div class="channel-avatar">
-            <img src="ico.png" alt="VOW" class="avatar-img">
-          </div>
-          <div class="content-wrapper">
-            <div class="channel-info">
-              <h1 class="channel-name">VOW</h1>
-            </div>
-            <a href="https://discord.gg/eFznNrYMgw" class="discord-button" id="discord-btn" target="_blank">DISCORD</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="top-widget">
-        <h2 class="widget-title">TOP 5 MEMBERS</h2>
-        <div class="top-list">
-          <!-- These items will be added by JavaScript -->
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    // Demo data for top members (would normally be provided by array.js)
-    const topBoosters = [
-      { name: "not set", description: "not set" },
-      { name: "not set", description: "not set" },
-      { name: "not set", description: "not set" },
-      { name: "not set", description: "not set" },
-      { name: "not set", description: "not set" },
-    ];
-
-    // Create top booster list
-    const topList = document.querySelector('.top-list');
+    <div class="error-message">[ERROR]: Canno't access WebAPI and Chromium</div>
     
-    topBoosters.forEach((booster, index) => {
-      const item = document.createElement('div');
-      item.className = 'top-item';
-      
-      let rankClass = '';
-      if (index === 0) rankClass = 'gold';
-      else if (index === 1) rankClass = 'silver';
-      else if (index === 2) rankClass = 'bronze';
-      
-      item.innerHTML = `
-        <div class="rank ${rankClass}">${index + 1}</div>
-        <div class="item-content">
-          <div class="item-name">${booster.name}</div>
-          <div class="item-description">${booster.description}</div>
-        </div>
-      `;
-      
-      topList.appendChild(item);
-      
-      // Add animation with delay
-      setTimeout(() => {
-        item.style.animation = `fadeUp 0.8s ease-out forwards`;
-      }, 100 * (index + 1));
-    });
-    
-    // Hover effects for all items
-    document.querySelectorAll('.top-item').forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        item.style.transition = 'all 0.3s ease';
-      });
-    });
-  </script>
+    <div id="log-container">
+        <div id="log-text"></div>
+    </div>
+
+    <script>
+        const logEntries = [
+            "Attempting to connect to server...",
+            "Connection failed: timeout",
+            "Retrying connection (1/3)...",
+            "Connection failed: refused",
+            "Retrying connection (2/3)...",
+            "Connection established to backup server",
+            "Authenticating user credentials...",
+            "Authentication failed: invalid token",
+            "Attempting password recovery...",
+            "Recovery process initiated",
+            "Checking system files integrity...",
+            "WARNING: Missing critical system files",
+            "Attempting to restore from backup...",
+            "Restore failed: backup corrupted",
+            "Initiating failsafe protocol...",
+            "System scan in progress...",
+            "Multiple vulnerabilities detected",
+            "Security breach confirmed in module #4326",
+            "Attempting to isolate compromised files...",
+            "Isolation failed: insufficient permissions",
+            "Critical system failure imminent",
+            "Emergency shutdown recommended",
+            "Shutdown request ignored: override detected",
+            "System integrity compromised",
+            "Administrator access revoked",
+            "Unknown user gained privileged access",
+            "Data extraction in progress",
+            "Unable to stop unauthorized data transfer",
+            "System compromised. All security measures failed."
+        ];
+
+        const logText = document.getElementById('log-text');
+        let currentIndex = 0;
+
+        function addLogEntry() {
+            if (currentIndex >= logEntries.length) {
+                return;
+            }
+            
+            logText.textContent += logEntries[currentIndex] + "\n";
+            currentIndex++;
+            
+            setTimeout(addLogEntry, 5000 / logEntries.length);
+        }
+
+        // Start adding log entries after a 1 second delay
+        setTimeout(addLogEntry, 1000);
+    </script>
 </body>
 </html>
